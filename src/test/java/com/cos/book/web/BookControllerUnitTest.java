@@ -2,10 +2,11 @@ package com.cos.book.web;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 // 단위테스트(Controller 관련 로직만 테스트)
-
-import static org.mockito.Mockito.inOrder;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -48,9 +49,9 @@ public class BookControllerUnitTest {
     //when
     ResultActions resultAction = mockMvc.perform(
       post("/book")
-        .contentType(MediaType.APPLICATION_JSON_UTF8)
+        .contentType(MediaType.APPLICATION_JSON)
         .content(content)
-        .accept(MediaType.APPLICATION_JSON_UTF8)
+        .accept(MediaType.APPLICATION_JSON)
     );
     //then
     resultAction
@@ -69,7 +70,7 @@ public class BookControllerUnitTest {
 
     //when
     ResultActions resultAction = mockMvc.perform(
-      get("/book").accept(MediaType.APPLICATION_JSON_UTF8)
+      get("/book").accept(MediaType.APPLICATION_JSON)
     );
 
     //then
@@ -88,7 +89,7 @@ public class BookControllerUnitTest {
       .thenReturn(new Book(1L, "자바공부하기", "쌀쌀"));
     //when
     ResultActions resultAction = mockMvc.perform(
-      get("/book/{id}", id).accept(MediaType.APPLICATION_JSON_UTF8)
+      get("/book/{id}", id).accept(MediaType.APPLICATION_JSON)
     );
     //then
     resultAction
@@ -108,9 +109,9 @@ public class BookControllerUnitTest {
     //when
     ResultActions resultAction = mockMvc.perform(
       put("/book/{id}", id)
-        .contentType(MediaType.APPLICATION_JSON_UTF8)
+        .contentType(MediaType.APPLICATION_JSON)
         .content(content)
-        .accept(MediaType.APPLICATION_JSON_UTF8)
+        .accept(MediaType.APPLICATION_JSON)
     );
     //then
     resultAction

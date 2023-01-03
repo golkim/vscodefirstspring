@@ -1,7 +1,10 @@
 package com.cos.book.web;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -11,7 +14,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.persistence.EntityManager;
 import java.util.ArrayList;
 import java.util.List;
-import lombok.extern.slf4j.Slf4j;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -29,7 +31,6 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.transaction.annotation.Transactional;
 
-@Slf4j
 @Transactional
 @AutoConfigureMockMvc
 @SpringBootTest(webEnvironment = WebEnvironment.MOCK) //실제 톰켓올리는것이 아니라, 다른톰켓으로 테스트
@@ -60,9 +61,9 @@ public class BookControllerIntegreTest {
     //when
     ResultActions resultAction = mockMvc.perform(
       post("/book")
-        .contentType(MediaType.APPLICATION_JSON_UTF8)
+        .contentType(MediaType.APPLICATION_JSON)
         .content(content)
-        .accept(MediaType.APPLICATION_JSON_UTF8)
+        .accept(MediaType.APPLICATION_JSON)
     );
 
     //then
@@ -82,7 +83,7 @@ public class BookControllerIntegreTest {
 
     //when
     ResultActions resultAction = mockMvc.perform(
-      get("/book").accept(MediaType.APPLICATION_JSON_UTF8)
+      get("/book").accept(MediaType.APPLICATION_JSON)
     );
 
     //then
@@ -104,7 +105,7 @@ public class BookControllerIntegreTest {
 
     //when
     ResultActions resultAction = mockMvc.perform(
-      get("/book/{id}", id).accept(MediaType.APPLICATION_JSON_UTF8)
+      get("/book/{id}", id).accept(MediaType.APPLICATION_JSON)
     );
     //then
     resultAction
@@ -128,9 +129,9 @@ public class BookControllerIntegreTest {
     //when
     ResultActions resultAction = mockMvc.perform(
       put("/book/{id}", id)
-        .contentType(MediaType.APPLICATION_JSON_UTF8)
+        .contentType(MediaType.APPLICATION_JSON)
         .content(content)
-        .accept(MediaType.APPLICATION_JSON_UTF8)
+        .accept(MediaType.APPLICATION_JSON)
     );
     //then
     resultAction
