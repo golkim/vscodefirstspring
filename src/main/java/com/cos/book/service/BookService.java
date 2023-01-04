@@ -43,7 +43,7 @@ public class BookService {
 	if(bookRespository.existsById(id)) {
 		bookRespository.deleteById(id);
 	}else {
-		LOGGER.error("없는 아이디 삭제===========");
+		LOGGER.error("=========없는 아이디 삭제===========");
 	}
     return "ok";
   }
