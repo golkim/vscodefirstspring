@@ -2,18 +2,21 @@ package com.cos.book.service;
 
 import java.util.List;
 
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.cos.book.domain.Book;
 import com.cos.book.domain.BookRespository;
 
 import lombok.RequiredArgsConstructor;
-import com.cos.book.domain.Book;
 
 @RequiredArgsConstructor
 @Service
 public class BookService {
   private final BookRespository bookRespository;
+  private final Logger LOGGER = LoggerFactory.getLogger(BookService.class.getName());
   @Transactional
   public Book 저장하기(Book book){
     return bookRespository.save(book);
@@ -37,7 +40,11 @@ public class BookService {
   }
   @Transactional
   public String 삭제하기(Long id){
-    bookRespository.deleteById(id);
+	if(bookRespository.existsById(id)) {
+		bookRespository.deleteById(id);
+	}else {
+		LOGGER.error("없는 아이디 삭제===========");
+	}
     return "ok";
   }
 }
